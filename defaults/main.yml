@@ -16,6 +16,6 @@ rvm: '{{ rvm_install_path }}/bin/rvm'
 rvm_rubies:
   - 'ruby-2.2.2'
 rvm_rubies_to_purge:
-rvm_gem_bin: '{{ rvm_install_path }}/rubies/{{ rvm_default_ruby_version }}"/bin/gem'
+rvm_gem_bin: '{{ rvm_install_path }}/rubies/{{ rvm_default_ruby_version }}/bin/gem'
 rvm_rubies_install_flags:
 rvm_default_ruby_version: '{{ rvm_rubies | last if rvm_rubies and rvm_rubies is iterable else "" }}'
