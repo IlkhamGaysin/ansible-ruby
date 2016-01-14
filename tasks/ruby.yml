@@ -30,11 +30,15 @@
   always_run: yes
   register: ruby_patch_no
 
-- name: Installing bundler
-  gem:
-    name: bundler
-    state: latest
-    executable: "{{ rvm_gem_bin }}"
+- name: Install bundler if not installed
+  shell: >
+    ls {{ rvm_install_path }}/wrappers/{{ item.stdout }}
+    | if ! grep "^bundler " ; then {{ rvm_gem_bin }} install bundler ; fi
+  args:
+    creates: '{{ rvm_install_path }}/wrappers/{{ item.stdout }}/bundler'
+  with_items: ruby_patch.results
+  register: bundler_install
+  changed_when: '"Successfully installed bundler" in bundler_install.stdout'
 
 - name: Asserting if is there any ruby versions that to be deleted
   command: '{{ rvm }} {{ rvm_rubies_to_purge }} do true'
