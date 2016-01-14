@@ -34,7 +34,7 @@
   gem:
     name: bundler
     state: latest
-  executable: "{{ rvm_install_path }}"/rubies/{{ rvm_default_ruby_version }}/bin/gem
+  executable: "{{ rvm_install_path }}"/rubies/"{{ rvm_default_ruby_version }}"/bin/gem
 
 
 - name: Asserting if is there any ruby versions that to be deleted
