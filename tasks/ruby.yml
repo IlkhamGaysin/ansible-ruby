@@ -33,7 +33,7 @@
 - name: Install bundler if not installed
   shell: '{{ rvm_gem_bin }} install bundler'
   args:
-    creates: '{{ rvm_install_path }}/wrappers/{{ item.stdout }}/bundler'
+    creates: '{{ rvm_install_path }}/wrappers/{{ detected_default_ruby_version }}/bundler'
   register: bundler_install
   changed_when: '"Successfully installed bundler" in bundler_install.stdout'
 
