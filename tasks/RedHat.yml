@@ -4,5 +4,27 @@
     name: "{{ item }}"
     state: absent
   with_items:
-    - ruby
-    - ruby1.8
+    - graphviz-ruby.x86_64
+    - kross-ruby.x86_64
+    - libselinux-ruby.x86_64
+    - marisa-ruby.x86_64
+    - openwsman-ruby.x86_64
+    - plasma-scriptengine-ruby.x86_64
+    - rrdtool-ruby.x86_64
+    - ruby-devel.x86_64
+    - ruby-doc.noarch
+    - ruby-hivex.x86_64
+    - ruby-irb.noarch
+    - ruby-libguestfs.x86_64
+    - ruby-libs.i686
+    - ruby-libs.x86_64
+    - ruby-saslwrapper.x86_64
+    - ruby-tcltk.x86_64
+    - rubygem-abrt.noarch
+    - rubygem-abrt-doc.noarch
+    - rubygem-bundler.noarch
+    - rubygem-bundler-doc.noarch
+    - rubygem-json.x86_64
+    - rubygem-net-http-persistent-doc.noarch
+    - rubygem-psych.x86_64
+    - rubygem-rake.noarch
