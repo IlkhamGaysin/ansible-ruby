@@ -1,6 +1,6 @@
 ---
 - name: Asserting that the RVM binary is present
-  assert: path='{{ rvm }}'
+  stat: path='{{ rvm }}'
   register: rvm_bin
 
 - name: Asserting that the RVM installer is present
