@@ -32,7 +32,6 @@
 
 - name: Installing bundler
   gem: name=bundler state=latest
-  when: not is_there_a_bundler.stat.exists
 
 - name: Asserting if is there any ruby versions that to be deleted
   command: '{{ rvm }} {{ rvm_rubies_to_purge }} do true'
