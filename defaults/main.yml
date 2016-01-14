@@ -12,6 +12,7 @@ rvm_check_for_update: True
 rvm_autolib_mode: 3
 
 # RVM usage-related variables
+rvm: '{{ rvm_install_path }}/bin/rvm'
 rvm_rubies:
   - 'ruby-2.2.2'
 rvm_rubies_to_purge:
