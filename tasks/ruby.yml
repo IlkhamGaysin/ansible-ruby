@@ -30,7 +30,7 @@
   always_run: yes
   register: ruby_patch_no
 
- - shell: ls {{ rvm_install_path }}/wrappers/{{ item.stdout }} | grep "^bundler"
+ - shell: ls "{{ rvm_install_path }}"/wrappers/"{{ item.stdout }}" | grep "^bundler"
     register: is_there_a_bundler
     changed_when: False
     failed_when: False
