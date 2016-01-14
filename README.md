@@ -1,4 +1,4 @@
-RBM Ansible Role
+RVM Ansible Role
 =========
 
 ![HE:Labs](https://raw.githubusercontent.com/Helabs/helabs.github.com/master/images/logo.png "HE:Labs")
