@@ -1,0 +1,9 @@
+---
+- name: Asserting that there's no other ruby binaries on system
+  apt:
+    name: "{{ item }}"
+    state: absent
+    purge: yes
+  with_items:
+    - ruby
+    - ruby1.8

@@ -1,2 +1,19 @@
 ---
 # defaults file for helabs.ruby
+# RVM install-related variables
+gpg_key_server: "hkp://keys.gnupg.net"
+gpg_key_id: "409B6B1796C275462A1703113804BB82D39DC0E3"
+installer_url: "https://get.rvm.io"
+rvm_release: 'stable'
+rvm_download_path: "/tmp"
+rvm_install_path: "/usr/local/rvm"
+rvm_install_flags: "--auto-dotfiles"
+rvm_check_for_update: True
+rvm_autolib_mode: 3
+
+# RVM usage-related variables
+rvm_rubies:
+  - 'ruby-2.2.2'
+rvm_rubies_to_purge:
+rvm_rubies_install_flags:
+rvm_default_ruby_version: '{{ rvm_rubies | last if rvm_rubies and rvm_rubies is iterable else "" }}'

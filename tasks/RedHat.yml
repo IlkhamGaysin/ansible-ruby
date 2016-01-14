@@ -1,0 +1,8 @@
+---
+- name: Asserting that there's no other ruby binaries on system
+  yum:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - ruby
+    - ruby1.8
