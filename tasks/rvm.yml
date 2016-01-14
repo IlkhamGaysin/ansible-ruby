@@ -13,7 +13,7 @@
   register: rvm_current_version
   when: rvm_bin.stat.exists
 
-- name: Installing rvm installer
+- name: Fetching rvm installer
   get_url:
     url: '{{ installer_url }}'
     dest: '{{ rvm_download_path }}/rvm-installer.sh'

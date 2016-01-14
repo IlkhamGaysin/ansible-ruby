@@ -30,11 +30,12 @@
   always_run: yes
   register: ruby_patch_no
 
-- name: Asserting if bundler is installed
-  shell: >
-    ls {{ rvm_install_path }}/wrappers/{{ item.stdout }}
-    | if ! grep "^bundler "; fi
-  register: is_there_a_bundler
+ - shell: ls {{ rvm_install_path }}/wrappers/{{ item.stdout }} | grep "^bundler"
+    register: is_there_a_bundler
+    changed_when: False
+    failed_when: False
+  - debug: msg="config has user.name"
+    when: "0 == {{is_there_a_bundler.rc}}"
 
 - name: Installing bundler
   gem: name=bundler state=latest
