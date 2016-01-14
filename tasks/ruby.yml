@@ -11,6 +11,7 @@
   command: '{{ rvm }} install {{ item.item }} {{ rvm_rubies_install_flags }}'
   when: rvm_rubies and item.rc|default(0) != 0
   with_items: detected_rubies.results
+  sudo_user: '{{ rvm_user }}'
 
 - name: Asserting which is the default ruby version
   command: '{{ rvm }} alias list default'
@@ -22,18 +23,10 @@
   when: detected_default_ruby_version.stdout|default() == '' or
         rvm_default_ruby_version not in detected_default_ruby_version.stdout
 
-- name: Asserting installed ruby patch number
-  shell: >
-    {{ rvm }} list strings | grep {{ item }} | tail -n 1
-  with_items: rvm_rubies
-  changed_when: False
-  always_run: yes
-  register: ruby_patch_no
-
 - name: Install bundler if not installed
   shell: '{{ rvm_gem_bin }} install bundler'
   args:
-    creates: '{{ rvm_install_path }}/wrappers/{{ detected_default_ruby_version }}/bundler'
+    creates: '{{ rvm_install_path }}/wrappers/{{ item.stdout }}/bundler'
   register: bundler_install
   changed_when: '"Successfully installed bundler" in bundler_install.stdout'
 
