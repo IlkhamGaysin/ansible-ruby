@@ -4,7 +4,8 @@ RVM Ansible Role
 ![HE:Labs](https://raw.githubusercontent.com/Helabs/helabs.github.com/master/images/logo.png "HE:Labs")
 
 This is a simple role, based on [rvm/rvm1](https://github.com/rvm/rvm1-ansible)
-that installs rvm and with rvm installs any given ruby packages.
+that installs RVM and with this freshly installed RVM, installs any given ruby
+packages.
 
 Requirements
 ------------
@@ -14,14 +15,14 @@ This role only requires Ansible version 1.9+
 Role Variables
 --------------
 
-All variables should be ovewritten at the playbook level. Those are:
+All variables should be overwritten at the playbook level. Those are:
 
-`gpg_key_server`: The keyserver from with you want to fetch [RVM's creator's](https://keybase.io/mpapis)
+`gpg_key_server`: The gpg key server from which you will fetch the [RVM's creator's](https://keybase.io/mpapis)
 public key:
 
     hkp://keys.gnupg.net
 
-`gpg_key_id`: [Michal Papis'](https://keybase.io/mpapis) public key itself:
+`gpg_key_id`: [Michal Papis'](https://keybase.io/mpapis) public keys:
 
     409B6B1796C275462A1703113804BB82D39DC0E3
 
