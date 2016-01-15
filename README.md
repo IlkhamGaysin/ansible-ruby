@@ -18,11 +18,17 @@ Role Variables
 All variables should be overwritten at the playbook level. Those are:
 
 `rbenv.env`: Type of rbenv installation. Allows 'system' or 'user' values
+
 `rbenv.version`: Version of rbenv to install (tag from rbenv releases page)
+
 `rbenv.ruby_version`: Version of ruby to install as global rbenv ruby
+
 `rbenv_repo`: Repository with source code of rbenv to install
+
 `rbenv_plugins`: Array of Hashes with information about plugins to install
+
 `rbenv_root`: rbenv install path
+
 `rbenv_users`: array of usernames for multiuser install. User must be present in
 the system
 
