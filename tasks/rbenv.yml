@@ -1,25 +1,4 @@
 ---
-- name: rbenv.yml | Installing build deps
-  apt:
-    pkg: "{{ item }}"
-    state: latest
-    install_recommends: no
-  with_items:
-    - build-essential
-    - git
-    - libcurl4-openssl-dev
-    - libmysqlclient-dev
-    - libsqlite3-dev
-    - libpq-dev
-    - libreadline6-dev
-    - libssl-dev
-    - libxml2-dev
-    - libxslt1-dev
-    - zlib1g-dev
-    - libc6-dev
-    - libyaml-dev
-    - libffi-dev
-
 - name: rbenv.yml | Fetching RBenv
   git:
     repo: "{{ rbenv_github_url }}"
@@ -42,19 +21,19 @@
 
 - name: rbenv.yml | Checking if ruby-build is installed
   command: test -x /usr/local/bin/ruby-build
-  register: rbuild_present
+  register: ruby_build_present
   ignore_errors: yes
 
 - name: rbenv.yml | Fetching ruby-build
   git:
-    repo: {{ ruby-build_github_url }}
+    repo: {{ ruby_build_github_url }}
     dest: /tmp/ruby-build
-  when: rbuild_present|failed
+  when: ruby_build_present|failed
 
 - name: rbenv.yml | Installing ruby-build
   command: ./install.sh
     chdir: /tmp/ruby-build
-  when: rbuild_present|failed
+  when: ruby_build_present|failed
 
 - name: rbenv.yml | Cleaning up ruby-build temporary files
   file:
@@ -68,11 +47,11 @@
   ignore_errors: yes
 
 - name: rbenv.yml | Installing ruby ruby_version
-  shell: RBENV_ROOT={{rbenv_root}} rbenv install {{ruby_version}}
+  shell: RBENV_ROOT={{rbenv_root}} rbenv install {{ ruby_version }}
   when: ruby_installed|failed
 
-- name: rbenv.yml | Setting global ruby {{ruby_version}}
-  shell: RBENV_ROOT={{rbenv_root}} rbenv global {{ruby_version}}
+- name: rbenv.yml | Setting global ruby {{ ruby_version }}
+  shell: RBENV_ROOT={{rbenv_root}} rbenv global {{ ruby_version }}
   when: ruby_installed|failed
 
 - name: rbenv.yml | Rehashing

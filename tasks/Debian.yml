@@ -7,3 +7,24 @@
   with_items:
     - ruby
     - ruby1.8
+
+- name: Installing build deps
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+    install_recommends: no
+  with_items:
+    - build-essential
+    - git
+    - libcurl4-openssl-dev
+    - libmysqlclient-dev
+    - libsqlite3-dev
+    - libpq-dev
+    - libreadline6-dev
+    - libssl-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - zlib1g-dev
+    - libc6-dev
+    - libyaml-dev
+    - libffi-dev

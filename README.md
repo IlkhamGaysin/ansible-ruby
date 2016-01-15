@@ -1,11 +1,11 @@
-RVM Ansible Role
+RBenv Ansible Role
 =========
 
 ![HE:Labs](https://raw.githubusercontent.com/Helabs/helabs.github.com/master/images/logo.png "HE:Labs")
 
-This is a simple role, based on [rvm/rvm1](https://github.com/rvm/rvm1-ansible)
-that installs RVM and with this freshly installed RVM, installs any given ruby
-packages.
+This is a simple role, based on [rbenv](https://github.com/rbenv/rbenv)
+that installs rbenv and with this freshly installed rbenv, installs any given
+ruby packages.
 
 Requirements
 ------------
@@ -22,64 +22,25 @@ public key:
 
     hkp://keys.gnupg.net
 
-`gpg_key_id`: [Michal Papis'](https://keybase.io/mpapis) public keys:
+`rbenv_github_url`: The url from which we will fetch the rbenv's sources
 
-    409B6B1796C275462A1703113804BB82D39DC0E3
+    "https://github.com/rbenv/rbenv.git"
 
-`installer_url`: The url used by this role to fetch the RVM installer:
+`rbenv_root`: The path where you want rbenv to be installed on
 
-    https://get.rvm.io
+    "/usr/local/rbenv"
 
-`rvm_release`: The RVM release channel you want your host to be in:
+`rbenv_version`: The rbenv version you want to install
 
-    stable
+    "1.0.0"
 
-`rvm_download_path`: Where to save the RVM installer:
+`ruby_build_github_url`: The url from which we will fetch ruby-build's sources
 
-    /tmp
+    "https://github.com/rbenv/ruby-build.git"
 
-`rvm_install_path`: The path where you want RVM to be installed on:
+`ruby_version`: The ruby version you want to install
 
-    /usr/local/rvm
-
-`rvm_install_flags`: Additional flags that you would want to set on the RVM
-install steps:
-
-    --auto-dotfiles
-
-`rvm_check_for_update`: Where or not you want to update RVM if it's already in
-place:
-
-    True
-
-`rvm_autolib_mode`: [Autolibs](https://rvm.io/rvm/autolibs) is a feature built
-into RVM to allow you to automatically install dependencies on your system.
-These dependencies are typically things like OpenSSL, YAML and others.
-You can also disable autolibs completely or do things in-between
-"take care of it all" or "do nothing at all":
-
-    3
-
-`rvm_rubies`: List of ruby versions you want to install on this system:
-
-    rvm_rubies:
-      - ruby-2.2.2
-      - ruby-2.1
-
-`rvm_rubies_to_purge`: List of ruby versions (managed by RVM) you want to purge
-from this system:
-
-    rvm_rubies_to_purge:
-      - ruby-2.1
-
-`rvm_rubies_install_flags`: Additional flags that you would want to set on the
-rubies install steps
-
-`rvm_default_ruby_version`: The default ruby version to be used on this system.
-This can also be overwritten, but it's not recomended since it defaults to
-the latest ruby release listed on rvm:
-
-    '{{ rvm_rubies | last if rvm_rubies and rvm_rubies is iterable else "" }}'
+    2.2.0
 
 Dependencies
 ------------
@@ -92,7 +53,6 @@ Using this role
 Using this roles as as simples as:
 
     - hosts: servers
-      become: yes
       become_user: app-local-non-root-user
       roles:
          - helabs.ruby

@@ -1,7 +1,7 @@
 ---
 # defaults file for helabs.ruby
-# RBenv usage-related variables
 rbenv_github_url: "https://github.com/rbenv/rbenv.git"
 rbenv_root: "/usr/local/rbenv"
 rbenv_version: "1.0.0"
-ruby-build_github_url: "https://github.com/rbenv/ruby-build.git"
+ruby_build_github_url: "https://github.com/rbenv/ruby-build.git"
+ruby_version: "2.2.0"
