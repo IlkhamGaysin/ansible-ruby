@@ -61,4 +61,3 @@
   gem:
     name: bundler
     state: latest
-  sudo: yes
