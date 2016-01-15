@@ -8,7 +8,7 @@
 - name: rbenv.yml | Symlinking the RBenv binary
   file:
     path: "/usr/local/bin/rbenv"
-    src: "{{ rbenv_root }}"/bin/rbenv"
+    src: "{{ rbenv_root }}/bin/rbenv"
     state: link
 
 - name: rbenv.yml | Adding the rbenv initialization scripts to profile.d
