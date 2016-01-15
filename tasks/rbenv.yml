@@ -38,7 +38,7 @@
   file:
     path: /tmp/ruby-build
     state: absent
-  when: rbuild_present|failed
+  when: ruby_build_present|failed
 
 - name: rbenv.yml | Checking for ruby ruby_version
   shell: RBENV_ROOT={{rbenv_root}} rbenv versions | grep {{ruby_version}}
