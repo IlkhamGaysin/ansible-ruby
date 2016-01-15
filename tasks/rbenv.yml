@@ -1,16 +1,4 @@
 ---
-- name: rbenv.yml | Creating rbenv group
-  group:
-    name: "{{ rbenv_group }}"
-    state: present
-
-- name: rbenv.yml | Creating rbenv user
-  user:
-    comment: "rbenv user"
-    name: "{{ rbenv_user }}"
-    group: "{{ rbenv_group }}"
-    home: "{{ rbenv_root }}"
-
 - name: rbenv.yml | Fetching RBenv
   git:
     repo: "{{ rbenv_github_url }}"
@@ -30,6 +18,18 @@
     owner: root
     group: root
     mode: 0755
+
+- name: rbenv.yml | Creating rbenv group
+  group:
+    name: "{{ rbenv_group }}"
+    state: present
+
+- name: rbenv.yml | Creating rbenv user
+  user:
+    comment: "rbenv user"
+    name: "{{ rbenv_user }}"
+    group: "{{ rbenv_group }}"
+    home: "{{ rbenv_root }}"
 
 - name: rbenv.yml | Checking if ruby-build is installed
   command: test -x /usr/local/bin/ruby-build
