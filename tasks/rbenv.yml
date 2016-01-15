@@ -31,7 +31,7 @@
   when: ruby_build_present|failed
 
 - name: rbenv.yml | Installing ruby-build
-  command: ./install.sh chdir: /tmp/ruby-build
+  command: ./install.sh chdir=/tmp/ruby-build
   when: ruby_build_present|failed
 
 - name: rbenv.yml | Cleaning up ruby-build temporary files
