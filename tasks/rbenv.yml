@@ -45,7 +45,7 @@
   register: ruby_installed
   ignore_errors: yes
 
-- name: rbenv.yml | Installing ruby ruby_version
+- name: rbenv.yml | Installing ruby
   shell: RBENV_ROOT={{rbenv_root}} rbenv install {{ ruby_version }}
   when: ruby_installed|failed
 
