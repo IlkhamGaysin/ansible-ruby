@@ -26,7 +26,7 @@
 
 - name: rbenv.yml | Fetching ruby-build
   git:
-    repo: {{ ruby_build_github_url }}
+    repo: "{{ ruby_build_github_url }}"
     dest: /tmp/ruby-build
   when: ruby_build_present|failed
 
