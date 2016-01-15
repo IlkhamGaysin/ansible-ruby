@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Lucas do Amaral Saboya
-  description:
+  description: Ansible role to install ruby via rbenv. based on https://github.com/zzet/ansible-rbenv-role
   company: HE:Labs
   license: BSD
   min_ansible_version: 1.9.4+

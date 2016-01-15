@@ -17,30 +17,14 @@ Role Variables
 
 All variables should be overwritten at the playbook level. Those are:
 
-`gpg_key_server`: The gpg key server from which you will fetch the [RVM's creator's](https://keybase.io/mpapis)
-public key:
-
-    hkp://keys.gnupg.net
-
-`rbenv_github_url`: The url from which we will fetch the rbenv's sources
-
-    "https://github.com/rbenv/rbenv.git"
-
-`rbenv_root`: The path where you want rbenv to be installed on
-
-    "/usr/local/rbenv"
-
-`rbenv_version`: The rbenv version you want to install
-
-    "1.0.0"
-
-`ruby_build_github_url`: The url from which we will fetch ruby-build's sources
-
-    "https://github.com/rbenv/ruby-build.git"
-
-`ruby_version`: The ruby version you want to install
-
-    2.2.0
+`rbenv.env`: Type of rbenv installation. Allows 'system' or 'user' values
+`rbenv.version`: Version of rbenv to install (tag from rbenv releases page)
+`rbenv.ruby_version`: Version of ruby to install as global rbenv ruby
+`rbenv_repo`: Repository with source code of rbenv to install
+`rbenv_plugins`: Array of Hashes with information about plugins to install
+`rbenv_root`: rbenv install path
+`rbenv_users`: array of usernames for multiuser install. User must be present in
+the system
 
 Dependencies
 ------------
@@ -53,9 +37,16 @@ Using this role
 Using this roles as as simples as:
 
     - hosts: servers
-      become_user: app-local-non-root-user
+      gather_facts: true
+      vars:
+        rbenv:
+          env: user
+          version: v0.4.0
+          ruby_version: 2.0.0-p353
       roles:
          - helabs.ruby
+           rbenv_users:
+            - app_user
 
 License
 -------

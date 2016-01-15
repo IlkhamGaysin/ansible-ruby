@@ -1,6 +1,8 @@
 ---
 - name: install build depends
-  yum: name={{ item }} state=present
+  yum:
+    name: "{{ item }}"
+    state: present
   with_items:
     - gcc
     - openssl-devel
@@ -10,6 +12,3 @@
     - libffi-devel
     - git
   sudo: true
-  tags:
-    - rbenv
-
