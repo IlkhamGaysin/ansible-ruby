@@ -1,0 +1,86 @@
+---
+- name: rbenv.yml | Installing build deps
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+    install_recommends: no
+  with_items:
+    - build-essential
+    - git
+    - libcurl4-openssl-dev
+    - libmysqlclient-dev
+    - libsqlite3-dev
+    - libpq-dev
+    - libreadline6-dev
+    - libssl-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - zlib1g-dev
+    - libc6-dev
+    - libyaml-dev
+    - libffi-dev
+
+- name: rbenv.yml | Fetching RBenv
+  git:
+    repo: "{{ rbenv_github_url }}"
+    dest: "{{ rbenv_root }}"
+    version: v"{{ rbenv_version }}"
+
+- name: rbenv.yml | Symlinking the RBenv binary
+  file:
+    path: "/usr/local/bin/rbenv"
+    src: "{{ rbenv_root }}"/bin/rbenv
+    state: link
+
+- name: rbenv.yml | Adding the rbenv initialization scripts to profile.d
+  template:
+    src: rbenv.sh.j2
+    dest: "/etc/profile.d/rbenv.sh"
+    owner: root
+    group: root
+    mode: 0755
+
+- name: rbenv.yml | Checking if ruby-build is installed
+  command: test -x /usr/local/bin/ruby-build
+  register: rbuild_present
+  ignore_errors: yes
+
+- name: rbenv.yml | Fetching ruby-build
+  git:
+    repo: {{ ruby-build_github_url }}
+    dest: /tmp/ruby-build
+  when: rbuild_present|failed
+
+- name: rbenv.yml | Installing ruby-build
+  command: ./install.sh
+    chdir: /tmp/ruby-build
+  when: rbuild_present|failed
+
+- name: rbenv.yml | Cleaning up ruby-build temporary files
+  file:
+    path: /tmp/ruby-build
+    state: absent
+  when: rbuild_present|failed
+
+- name: rbenv.yml | Checking for ruby ruby_version
+  shell: RBENV_ROOT={{rbenv_root}} rbenv versions | grep {{ruby_version}}
+  register: ruby_installed
+  ignore_errors: yes
+
+- name: rbenv.yml | Installing ruby ruby_version
+  shell: RBENV_ROOT={{rbenv_root}} rbenv install {{ruby_version}}
+  when: ruby_installed|failed
+
+- name: rbenv.yml | Setting global ruby {{ruby_version}}
+  shell: RBENV_ROOT={{rbenv_root}} rbenv global {{ruby_version}}
+  when: ruby_installed|failed
+
+- name: rbenv.yml | Rehashing
+  shell: RBENV_ROOT={{rbenv_root}} rbenv rehash
+  when: ruby_installed|failed
+
+- name: rbenv.yml | Installing bundler
+  gem:
+    name: bundler
+    state: latest
+  sudo: yes
