@@ -1,4 +1,16 @@
 ---
+- name: rbenv.yml | Creating rbenv group
+  group:
+    name: "{{ rbenv_group }}"
+    state: present
+
+- name: rbenv.yml | Creating rbenv user
+  user:
+    comment: "rbenv user"
+    name: "{{ rbenv_user }}"
+    group: "{{ rbenv_group }}"
+    home: "{{ rbenv_root }}"
+
 - name: rbenv.yml | Fetching RBenv
   git:
     repo: "{{ rbenv_github_url }}"
@@ -51,6 +63,14 @@
 
 - name: rbenv.yml | Setting global ruby {{ ruby_version }}
   shell: RBENV_ROOT={{rbenv_root}} rbenv global {{ ruby_version }}
+  when: ruby_installed|failed
+
+- name: rbenv.yml | Setting up rbenv's root ownership
+  file:
+    path: "{{ rbenv_root }}"
+    owner: "{{ rbenv_user }}"
+    group: "{{ rbenv_group }}"
+    mode: 0755
   when: ruby_installed|failed
 
 - name: rbenv.yml | Rehashing
