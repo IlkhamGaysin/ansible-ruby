@@ -9,12 +9,12 @@
   when: ansible_pkg_mgr == 'yum'
 
 - name: checkout rbenv_repo for system
-  git: >
-    repo={{ rbenv_repo }}
-    dest={{ rbenv_root }}
-    version={{ rbenv.version }}
-    accept_hostkey=true
-    force=yes
+  git:
+    repo: "{{ rbenv_repo }}"
+    dest: "{{ rbenv_root }}"
+    version: "{{ rbenv.version }}"
+    accept_hostkey: true
+    force: yes
   when: rbenv.env == "system"
 
 - name: create plugins directory for system
