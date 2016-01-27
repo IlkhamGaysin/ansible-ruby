@@ -18,26 +18,28 @@
   when: rbenv.env == "system"
 
 - name: create plugins directory for system
-  file: state=directory path={{ rbenv_root }}/plugins
+  file:
+    path: "{{ rbenv_root }}/plugins"
+    state: directory
   when: rbenv.env == "system"
 
 - name: install plugins for system
-  git: >
-    repo={{ item.repo }}
-    dest={{ rbenv_root }}/plugins/{{ item.name }}
-    version={{ item.version }}
-    accept_hostkey=true
-    force=yes
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ rbenv_root }}/plugins/{{ item.name }}"
+    version: "{{ item.version }}"
+    accept_hostkey: true
+    force: yes
   with_items: rbenv_plugins
   when: rbenv.env == "system"
 
 - name: checkout rbenv_repo for selected users
-  git: >
-    repo={{ rbenv_repo }}
-    dest={{ rbenv_root }}
-    version={{ rbenv.version }}
-    accept_hostkey=true
-    force=yes
+  git:
+    repo: "{{ rbenv_repo }}"
+    dest: "{{ rbenv_root }}"
+    version: "{{ rbenv.version }}"
+    accept_hostkey: true
+    force: yes
   with_items: rbenv_users
   sudo: true
   sudo_user: "{{ item }}"
@@ -45,7 +47,9 @@
   ignore_errors: true
 
 - name: create plugins directory for selected users
-  file: state=directory path={{ rbenv_root }}/plugins
+  file:
+    path: "{{ rbenv_root }}/plugins"
+    state: directory
   with_items: rbenv_users
   sudo: true
   sudo_user: "{{ item }}"
@@ -53,12 +57,12 @@
   ignore_errors: true
 
 - name: install plugins for selected users
-  git: >
-    repo={{ item[1].repo }}
-    dest={{ rbenv_root }}/plugins/{{ item[1].name }}
-    version={{ item[1].version }}
-    accept_hostkey=true
-    force=yes
+  git:
+    repo: "{{ item[1].repo }}"
+    dest: "{{ rbenv_root }}/plugins/{{ item[1].name }}"
+    version: "{{ item[1].version }}"
+    accept_hostkey: true
+    force: yes
   with_nested:
     - rbenv_users
     - rbenv_plugins
