@@ -134,7 +134,7 @@
   always_run: yes
   when: rbenv.env == "system"
 
-- name: install ruby {{ rbenv.ruby_version }} for system
+- name: installing ruby for system
   shell: bash -lc "rbenv install {{ rbenv.ruby_version }}"
   when:
     - rbenv.env == "system"
